@@ -2,62 +2,59 @@ import { NextResponse } from "next/server";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from '@/app/libs/prismadb';
 
-interface IParams {
-    listingId?: string;
-}
-
 export async function POST(
     request: Request,
-    context: { params: IParams } 
+    { params }: { params: { listingId: string } } 
 ) {
-    const currentUser = await getCurrentUser();
+    try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!currentUser) return NextResponse.error();
+        const { listingId } = params;
+        if (!listingId) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
-    const { listingId } = context.params; 
+        let favoriteIds = [...(currentUser.favoriteIds || [])];
 
-    if (!listingId || typeof listingId !== "string") throw new Error("Invalid ID");
-
-    let favoriteIds = [...(currentUser.favoriteIds || [])];
-
-    favoriteIds.push(listingId);
-
-    const user = await prisma.user.update({
-        where: {
-            id: currentUser.id
-        },
-        data: {
-            favoriteIds
+       
+        if (!favoriteIds.includes(listingId)) {
+            favoriteIds.push(listingId);
         }
-    });
 
-    return NextResponse.json(user);
+        const user = await prisma.user.update({
+            where: { id: currentUser.id },
+            data: { favoriteIds },
+        });
+
+        return NextResponse.json(user);
+    } catch (error) {
+        console.error("POST /api/favorites/[listingId] error:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
 }
 
 export async function DELETE(
     request: Request,
-    context: { params: IParams } 
+    { params }: { params: { listingId: string } }  
 ) {
-    const currentUser = await getCurrentUser();
+    try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!currentUser) return NextResponse.error();
+        const { listingId } = params;
+        if (!listingId) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
-    const { listingId } = context.params;
+        let favoriteIds = [...(currentUser.favoriteIds || [])];
 
-    if (!listingId || typeof listingId !== "string") throw new Error("Invalid ID");
+        favoriteIds = favoriteIds.filter((id) => id !== listingId);
 
-    let favoriteIds = [...(currentUser.favoriteIds || [])];
+        const user = await prisma.user.update({
+            where: { id: currentUser.id },
+            data: { favoriteIds },
+        });
 
-    favoriteIds = favoriteIds.filter((id) => id !== listingId);
-
-    const user = await prisma.user.update({
-        where: {
-            id: currentUser.id
-        },
-        data: {
-            favoriteIds
-        }
-    });
-
-    return NextResponse.json(user);
+        return NextResponse.json(user);
+    } catch (error) {
+        console.error("DELETE /api/favorites/[listingId] error:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
 }
