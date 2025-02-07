@@ -1,34 +1,35 @@
 import { NextResponse } from "next/server";
-
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 
 interface IParams {
-    listingId?: string;
+    listingId: string;
 }
 
 export async function DELETE(
     request: Request,
-    { params }: { params: IParams }
+    { params }: { params: Promise<IParams> }
 ) {
-    const currentUser = await getCurrentUser();
+    try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) return NextResponse.error();
 
-    if (!currentUser) {
-        return NextResponse.error();
-    }
+        const { listingId } = await params; 
 
-    const { listingId } = params;
-
-    if (!listingId || typeof listingId !== 'string') {
-        throw new Error('Invalid ID');
-    }
-
-    const listing = await prisma.listing.deleteMany({
-        where: {
-            id: listingId,
-            userId: currentUser.id,
+        if (!listingId || typeof listingId !== "string") {
+            return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
         }
-    });
 
-    return NextResponse.json(listing);
+        const listing = await prisma.listing.deleteMany({
+            where: {
+                id: listingId,
+                userId: currentUser.id,
+            }
+        });
+
+        return NextResponse.json(listing);
+    } catch (error) {
+        console.error("❌ Error deleting listing:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
 }

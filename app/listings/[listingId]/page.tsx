@@ -1,23 +1,24 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
-import getListingById from '@/app/actions/getListingById'
+import getListingById from '@/app/actions/getListingById';
 import ClientOnly from '@/app/components/ClientOnly';
 import EmptyState from '@/app/components/EmptyState';
-import React from 'react'
+import React from 'react';
 import ListingClient from './ListingClient';
 import getReservations from '@/app/actions/getReservations';
 
 export const metadata = {
     title: 'Airbnb | Listings',
-}
+};
 
 interface IParams {
     listingId?: string;
 }
 
-const ListingPage = async ({ params }: { params: IParams }) => {
+const ListingPage = async ({ params }: { params: Promise<IParams> }) => { 
+    const resolvedParams = await params;  
 
-    const listing = await getListingById(params);
-    const reservations = await getReservations(params);
+    const listing = await getListingById(resolvedParams);
+    const reservations = await getReservations(resolvedParams);
     const currentUser = await getCurrentUser();
 
     if (!listing) {
@@ -25,7 +26,7 @@ const ListingPage = async ({ params }: { params: IParams }) => {
             <ClientOnly>
                 <EmptyState />
             </ClientOnly>
-        )
+        );
     }
 
     return (
@@ -36,7 +37,7 @@ const ListingPage = async ({ params }: { params: IParams }) => {
                 currentUser={currentUser}
             />
         </ClientOnly>
-    )
-}
+    );
+};
 
-export default ListingPage
+export default ListingPage;
