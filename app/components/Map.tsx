@@ -9,8 +9,9 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { FC } from "react";
 
-// @ts-ignore
-delete L.Icon.Default.prototype._getIconUrl;
+
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+
 L.Icon.Default.mergeOptions({
     iconUrl: markerIcon.src,
     iconRetinaUrl: markerIcon2x.src,
@@ -21,11 +22,10 @@ interface MapProps {
     center?: number[]
 }
 
-
 const Map: FC<MapProps> = ({ center }) => {
     return (
         <MapContainer
-            center={center as L.LatLngExpression || [51, -0.09]}
+            center={(center as L.LatLngExpression) || [51, -0.09]}
             zoom={center ? 4 : 2}
             scrollWheelZoom={false}
             className="h-[35vh] rounded-lg"
@@ -40,7 +40,7 @@ const Map: FC<MapProps> = ({ center }) => {
                 />
             )}
         </MapContainer>
-    )
-}
+    );
+};
 
-export default Map
+export default Map;
