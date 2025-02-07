@@ -1,0 +1,13 @@
+{
+    "build": {
+      "env": {
+        "DATABASE_URL": "mongodb+srv://mohammedayazk017:mohammedayazk017@cluster0.zzg7d.mongodb.net/airbnb-clone"
+      }
+    },
+    "functions": {
+      "api/**/*.ts": {
+        "includeFiles": "prisma/schema.prisma"
+      }
+    }
+  }
+  
