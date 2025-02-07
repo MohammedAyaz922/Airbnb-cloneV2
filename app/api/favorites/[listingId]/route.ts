@@ -4,18 +4,17 @@ import prisma from '@/app/libs/prismadb';
 
 export async function POST(
     request: Request,
-    { params }: { params: { listingId: string } } 
+    { params }: { params: Promise<{ listingId: string }> }
 ) {
     try {
         const currentUser = await getCurrentUser();
         if (!currentUser) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-        const { listingId } = params;
+        const { listingId } = await params; 
         if (!listingId) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
         let favoriteIds = [...(currentUser.favoriteIds || [])];
 
-       
         if (!favoriteIds.includes(listingId)) {
             favoriteIds.push(listingId);
         }
@@ -34,17 +33,16 @@ export async function POST(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { listingId: string } }  
+    { params }: { params: Promise<{ listingId: string }> }
 ) {
     try {
         const currentUser = await getCurrentUser();
         if (!currentUser) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-        const { listingId } = params;
+        const { listingId } = await params;  
         if (!listingId) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
         let favoriteIds = [...(currentUser.favoriteIds || [])];
-
         favoriteIds = favoriteIds.filter((id) => id !== listingId);
 
         const user = await prisma.user.update({
