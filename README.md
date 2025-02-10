@@ -52,4 +52,4 @@
   
   <h2> 📧 Contact </h2>
 
-Mucahit Tasan - [Linkedin](www.linkedin.com/in/mohammed-ayaz-khan-120536220) - [E-mail](mohammedayazk017@gmail.com)
+Mohammed Ayaz khan- [Linkedin](www.linkedin.com/in/mohammed-ayaz-khan-120536220) - [E-mail](mohammedayazk017@gmail.com)
