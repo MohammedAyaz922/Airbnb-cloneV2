@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center"> Airbnb Clone </h1>
 
-## Getting Started
+<div align="center">
+  
+  <a href="https://airbnb-clone-v2-xi.vercel.app/" target="_blank">↪️ Demo</a>
+  <br />
+  <br />
+  
+</div> 
 
-First, run the development server:
+<div align="center">
+  <img width="900" src = 'https://user-images.githubusercontent.com/88967412/235461407-c9c4eb3d-b488-404a-968c-ad10d5153253.gif' />
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h2> ✨ About The Project</h2>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Full-stack** Airbnb-inspired booking system built with **Next.js, Node.js, TypeScript, and MongoDB**. This project supports **user authentication via Clerk**, secure payments via **Stripe**, and image uploads via **Uploadthing*. . How to use modals in general in my project, how to use nextjs and prisma together, how to use nextAuth package of nextjs, how to signIn with github or google, how to use nextjs together with typescript, how to optimize operations such as map and calendar and integrate them into the project. I've worked with things and I think it's a pretty cool project.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<h2> 📌 Build With</h2>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [NextJs](https://nextjs.org/)
+- [Prisma](https://www.prisma.io/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Tailwindcss](https://tailwindcss.com/)
+- [NextAuth](https://next-auth.js.org/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zustand](https://github.com/pmndrs/zustand)
 
-## Learn More
+<h2> 🔍 Setup</h2>
 
-To learn more about Next.js, take a look at the following resources:
+- Clone the project with **"git clone"**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- After cloning the project, by following these steps, you will fulfill the project requirements.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  - install with npm:
 
-## Deploy on Vercel
+  ```npm
+  npm i
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- After downloading the requirements, run below codes:
+  - Run with npm:
+  ```npm
+  npm run dev
+  ```
+    - Run with yarn:
+  ```yarn
+  yarn dev
+  ```
+
+  
+  <h2> 📧 Contact </h2>
+
+Mucahit Tasan - [Linkedin](www.linkedin.com/in/mohammed-ayaz-khan-120536220) - [E-mail](mohammedayazk017@gmail.com)
